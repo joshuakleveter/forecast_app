@@ -2,8 +2,8 @@
 //Imports //
 ////////////
 
-var http = require("http");
-var router = require("./js/router.js");
+var http = require('http');
+var router = require('./js/router.js');
 
 
 
@@ -18,7 +18,7 @@ var router = require("./js/router.js");
 var serverPromise = new Promise(function (resolve, reject) {
     var httpServer = http.createServer();
     resolve(httpServer);
-    reject("There was an error in starting the server!");
+    reject('There was an error in starting the server!');
 }).then(
     /**
      * If serverPromise is fulfilled
@@ -26,8 +26,8 @@ var serverPromise = new Promise(function (resolve, reject) {
      */
     function onFulfilled(httpServer) {
         //Set up a Node.js server on localhost:3000
-        httpServer.listen(3000, "localhost", function () {
-            process.stdout.write("The app is running at localhost:3000\n");
+        httpServer.listen(3000, 'localhost', function () {
+            process.stdout.write('The app is running at localhost:3000\n');
         });
         return httpServer;
     }
@@ -36,7 +36,7 @@ var serverPromise = new Promise(function (resolve, reject) {
      * Handle any HTTP requests from the client
      */
     function onFulfilled(httpServer) {
-        httpServer.on("request", function (request, response) {
+        httpServer.on('request', function (request, response) {
             router.route(request, response);
         });
     }
@@ -48,6 +48,6 @@ var serverPromise = new Promise(function (resolve, reject) {
  */
 serverPromise.catch(
     function onRejected(error) {
-        process.stderr.write(error.message + "\n");
+        process.stderr.write(error.message + '\n');
     }
 );

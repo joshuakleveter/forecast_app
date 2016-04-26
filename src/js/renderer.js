@@ -2,11 +2,11 @@
 //Imports //
 ////////////
 
-var forecast = require("./forecast.js");
-var fs = require("fs");
-var geocode = require("./geocoding.js");
-var handlebars = require("handlebars");
-var runner = require("./runner.js");
+var forecast = require('./forecast.js');
+var fs = require('fs');
+var geocode = require('./geocoding.js');
+var handlebars = require('handlebars');
+var runner = require('./runner.js');
 
 
 
@@ -21,7 +21,7 @@ var runner = require("./runner.js");
  */
 function getFile(filepath) {
     var filePromise = new Promise(function (resolve, reject) {
-        fs.readFile(filepath, "utf8", function (error, data) {
+        fs.readFile(filepath, 'utf8', function (error, data) {
             if (error) reject(error);
             resolve(data);
         });
@@ -39,7 +39,7 @@ function getFile(filepath) {
 function* _generateView(templateFiles, options) {
     var templates = yield Promise.all(templateFiles);
 
-    if (options.hasOwnProperty("location")) {
+    if (options.hasOwnProperty('location')) {
         var location = yield Promise.resolve(geocode.geocode(options.location));
         var forecastData = yield Promise.resolve(forecast.forecast(location.latLong.lat, location.latLong.lng));
         options.address = location.address;
@@ -47,7 +47,7 @@ function* _generateView(templateFiles, options) {
         options.daily = forecastData.daily.data[0];
     }
 
-    var view = "", compiledTemplate;
+    var view = '', compiledTemplate;
     templates.forEach(function (template) {
         compiledTemplate = handlebars.compile(template);
         view += compiledTemplate(options);
@@ -70,23 +70,23 @@ function render(templateName, options) {
 
     var templates = [];
     switch (templateName) {
-        case "home":
+        case 'home':
             templates = [
-                getFile("./views/head.html"),
-                getFile("./views/search.html")
+                getFile('./views/head.html'),
+                getFile('./views/search.html')
             ];
             break;
-        case "forecast":
+        case 'forecast':
             templates = [
-                getFile("./views/head.html"),
-                getFile("./views/forecast.hbs")
+                getFile('./views/head.html'),
+                getFile('./views/forecast.hbs')
             ];
             break;
-        case "error":
+        case 'error':
             templates = [
-                getFile("./views/head.html"),
-                getFile("./views/error.hbs"),
-                getFile("./views/search.html")
+                getFile('./views/head.html'),
+                getFile('./views/error.hbs'),
+                getFile('./views/search.html')
             ];
             break;
     }
@@ -100,5 +100,5 @@ function render(templateName, options) {
 //Module Exports //
 ///////////////////
 
-module.exports.css = getFile("./css/main.css");
+module.exports.css = getFile('./css/main.css');
 module.exports.render = render;

@@ -2,8 +2,8 @@
 //Imports //
 ////////////
 
-var https = require("https");
-var runner = require("./runner.js");
+var https = require('https');
+var runner = require('./runner.js');
 
 
 
@@ -19,19 +19,19 @@ var runner = require("./runner.js");
  */
 function _getForecast(latitude, longitude) {
     var forecastPromise = new Promise(function (resolve, reject) {
-        var key = "2015ddf0ed0c9e781880eb63aab3e346";
-        var url = "https://api.forecast.io/forecast/" + key + "/" + latitude + "," + longitude;
+        var key = '2015ddf0ed0c9e781880eb63aab3e346';
+        var url = 'https://api.forecast.io/forecast/' + key + '/' + latitude + ',' + longitude;
 
         var apiRequest = https.get(url, function (response) {
-            var responseBody = "";
-            response.on("data", function (data) {
+            var responseBody = '';
+            response.on('data', function (data) {
                 responseBody += data;
             });
-            response.on("end", function () {
+            response.on('end', function () {
                 resolve(JSON.parse(responseBody));
             });
         });
-        apiRequest.on("error", function (error) {
+        apiRequest.on('error', function (error) {
             reject(error);
         });
     });
