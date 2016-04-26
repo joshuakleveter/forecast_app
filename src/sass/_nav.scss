@@ -1,0 +1,33 @@
+a,
+#address {
+    color: $white;
+    text-decoration: none;
+}
+
+
+
+nav {
+    align-items: center;
+    background: $green;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+
+    @media only screen and (max-width: 500px) {
+        flex-direction: column;
+        text-align: center;
+
+        a {
+            background-color: $light-green;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            width: 60%;
+        }
+    }
+}
+
+
+
+#address {
+    margin: 0;
+}
