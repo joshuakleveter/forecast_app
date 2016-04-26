@@ -1,12 +1,11 @@
-#node_forecast_app
-A basic Node.js based forecast app.
+#forecast_app
+A basic Electron based forecast app.
 
 
 ###Setup:
 
-1. Clone this repo: `git clone https://github.com/joshuakleveter/node_forecast_app.git`.
-2. In the repo's root directory run `npm install`.
-3. Run `gulp deps`.
+1. Clone this repo: `git clone https://github.com/joshuakleveter/forecast_app.git`.
+2. In the repo's root directory run `npm install && gulp deps`.
 
 
 ##To Run App:
