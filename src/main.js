@@ -1,53 +1,46 @@
-////////////
-//Imports //
-////////////
+/////////////
+// Imports //
+/////////////
 
-var http = require("http");
-var router = require("./js/router.js");
+const electron = require('electron');
+const app = electron.app;  // Module to control application life.
+const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
 
 
 
-////////
-//App //
-////////
+/////////
+// App //
+/////////
 
-/**
- * Create an HTTP server
- * @return {Promise} - Node.js HTTP server
- */
-var serverPromise = new Promise(function (resolve, reject) {
-    var httpServer = http.createServer();
-    resolve(httpServer);
-    reject("There was an error in starting the server!");
-}).then(
-    /**
-     * If serverPromise is fulfilled
-     * Begin listening on localhost:3000
-     */
-    function onFulfilled(httpServer) {
-        //Set up a Node.js server on localhost:3000
-        httpServer.listen(3000, "localhost", function () {
-            process.stdout.write("The app is running at localhost:3000\n");
-        });
-        return httpServer;
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the JavaScript object is garbage collected.
+var mainWindow = null;
+
+
+// Quit when all windows are closed.
+app.on('window-all-closed', function() {
+    // On OS X it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
+    if (process.platform != 'darwin') {
+        app.quit();
     }
-).then(
-    /**
-     * Handle any HTTP requests from the client
-     */
-    function onFulfilled(httpServer) {
-        httpServer.on("request", function (request, response) {
-            router.route(request, response);
-        });
-    }
-);
+});
 
-/**
- * Catch any errors thrown in the promise chain
- * and log the error to stderr
- */
-serverPromise.catch(
-    function onRejected(error) {
-        process.stderr.write(error.message + "\n");
-    }
-);
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+app.on('ready', function() {
+    // Create the browser window.
+    mainWindow = new BrowserWindow({width: 800, height: 600});
+
+    // and load the index.html of the app.
+    mainWindow.loadURL('file://' + __dirname + '/index.html');
+
+    // Emitted when the window is closed.
+    mainWindow.on('closed', function() {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        mainWindow = null;
+    });
+});

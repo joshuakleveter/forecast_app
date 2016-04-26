@@ -8,9 +8,7 @@
         "src/**/*.js",
         "gulpfile.babel.js"
     ],
-    "dontLoad": [
-        "node_modules"
-    ],
+    "dontLoad": [],
     "plugins": {
         "node": {},
         "modules": {},

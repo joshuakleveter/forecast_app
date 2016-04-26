@@ -4,7 +4,7 @@
   "description": "A simple Electron based forecast application.",
   "main": "dist/main.js",
   "scripts": {
-    "app": "gulp build && electron dist"
+    "start": "gulp build && electron ."
   },
   "repository": {
     "type": "git",

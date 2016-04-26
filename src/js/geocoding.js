@@ -2,8 +2,8 @@
 //Imports //
 ////////////
 
-var https = require("https");
-var runner = require("./runner.js");
+var https = require('https');
+var runner = require('./runner.js');
 
 
 
@@ -20,24 +20,24 @@ function _geocodeRequest(zip) {
     //Create a new Promise for our API request
     var geocodePromise = new Promise(function (resolve, reject) {
         //API Key
-        var key = "AIzaSyAqOAWv-714TAq0SdCwn9BogqzRuhPjA2A";
+        var key = 'AIzaSyAqOAWv-714TAq0SdCwn9BogqzRuhPjA2A';
         //API URL
-        var url = "https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:" + zip + "&key=" + key;
+        var url = 'https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:' + zip + '&key=' + key;
 
         //Create a new API request over HTTPS
         var apiRequest = https.get(url, function (response) {
             //Store response data in a string
-            var responseJSON = "";
-            response.on("data", function (data) {
+            var responseJSON = '';
+            response.on('data', function (data) {
                 //Append data to string
                 responseJSON += data;
             });
-            response.on("end", function () {
+            response.on('end', function () {
                 //Parse JSON string and resolve Promise
                 resolve(JSON.parse(responseJSON));
             });
         });
-        apiRequest.on("error", function (error) {
+        apiRequest.on('error', function (error) {
             //Reject Promise on error
             reject(error);
         });
@@ -58,8 +58,8 @@ function* geocode(zip) {
     var geocodeResponse = yield Promise.resolve(_geocodeRequest(zip));
     //Get location object from results and return it
     var location = {
-        "address": geocodeResponse.results[0].formatted_address,
-        "latLong": geocodeResponse.results[0].geometry.location
+        'address': geocodeResponse.results[0].formatted_address,
+        'latLong': geocodeResponse.results[0].geometry.location
     };
     return location;
 }
